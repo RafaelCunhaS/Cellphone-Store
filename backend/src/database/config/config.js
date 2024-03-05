@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 require('dotenv').config();
 
 const config = {
@@ -7,6 +8,7 @@ const config = {
   host: process.env.DB_HOST || 'localhost',
   port: Number(process.env.DB_PORT) || 5432,
   dialect: 'postgres',
+  dialectModule: require('pg'),
   dialectOptions: {
     ssl: {
       require: true,
