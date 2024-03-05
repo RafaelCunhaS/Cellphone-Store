@@ -11,7 +11,7 @@ app.use(cors());
 
 app.use('/user', userRouter);
 
-app.use('/phone', cellphoneRouter);
+app.use('/cellphone', cellphoneRouter);
 
 app.use(errorMiddleware);
 

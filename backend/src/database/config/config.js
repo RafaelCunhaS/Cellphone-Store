@@ -9,12 +9,14 @@ const config = {
   port: Number(process.env.DB_PORT) || 5432,
   dialect: 'postgres',
   dialectModule: require('pg'),
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
+  ...(process.env.DB_SSL && {
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
     },
-  },
+  }),
   logging: false,
 };
 

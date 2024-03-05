@@ -1,15 +1,15 @@
 const router = require('express').Router();
-const phoneController = require('../controllers/cellphoneController');
+const cellphoneController = require('../controllers/cellphoneController');
 const validatePhone = require('../middlewares/validateCellphone');
 const validateAuth = require('../middlewares/authorization');
 const validateUpdatePhone = require('../middlewares/validateUpdateCellphone');
 
-router.get('/', validateAuth, phoneController.getAll);
+router.get('/', validateAuth, cellphoneController.getAll);
 
-router.post('/', validateAuth, validatePhone, phoneController.create);
+router.post('/', validateAuth, validatePhone, cellphoneController.create);
 
-router.put('/:id', validateAuth, validateUpdatePhone, phoneController.update);
+router.put('/:id', validateAuth, validateUpdatePhone, cellphoneController.update);
 
-router.delete('/:id', validateAuth, phoneController.remove);
+router.delete('/:id', validateAuth, cellphoneController.remove);
 
 module.exports = router;
