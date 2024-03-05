@@ -9,7 +9,6 @@
         "ecmaVersion": "latest"
     },
     "rules": {
-        "comma-dangle": ["error", "only-multiline"],
-        "sourceType": "module"
+        "comma-dangle": ["error", "only-multiline"]
     }
 }
