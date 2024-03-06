@@ -1,0 +1,105 @@
+.container {
+  h1 {
+    text-align: center;
+    font-size: 2.4em;
+  }
+  
+  button { 
+    border: none !important;
+    margin: auto;
+  }
+}
+
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 2.5rem;
+  margin: 1rem 3rem;
+}
+
+.cellphoneCard {
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+  height: 30%;
+  padding: 15px 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  background-color: #aa9e9e;
+  text-decoration: none;
+  color: #2e2323;
+
+  &:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
+    cursor: pointer;
+
+    h3 {
+      scale: 1.1;
+      transition: 0.4s;
+    }
+  }
+
+  h3 {
+    padding: 20px 0px;
+    text-align: center;
+  }
+
+  hr {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  margin-top: 2rem;
+
+  label {
+    font-size: 1.1em;
+  }
+}
+
+.searchContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.searchInput {
+  max-width: 20rem;
+}
+
+select {
+  appearance: none;
+  border: 0;
+  outline: 0;
+  font: inherit;
+  width: 7.5rem;
+  height: 2rem;
+  padding: 0.3rem 0.4rem;
+  margin-left: 0.4rem;
+  background: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg) no-repeat right 0.3em center / 1.4em,
+    linear-gradient(to left, #484853 3em, #524545 3em);
+  color: white;
+  border-radius: 0.25em;
+  box-shadow: 0 0 0.5em 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+
+  &::-ms-expand {
+    display: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  option {
+    color: white;
+    background-color: grey;
+  }
+}
