@@ -6,17 +6,28 @@ import CustomInput from '../../components/Input';
 import { Button } from '../../components/Button';
 import { api } from '../../services/api';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { LoadingSpinner } from '../../components/Loading';
 
 export function Home() {
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState('name');
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   async function getProducts() {
-    const { data } = await api.get(`/cellphone?category=${category}&search=${search}&sort=${sort}`);
-    setProducts(data);
+    setIsLoading(true);
+    try {
+      const { data } = await api.get(`/cellphone?category=${category}&search=${search}&sort=${sort}`);
+      setProducts(data);
+    } catch (error) {
+      console.log(error);
+      toast.warning(error.response.data.message);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -31,6 +42,7 @@ export function Home() {
   function handleSort(e) {
     setSort(e.currentTarget.value);
   }
+  console.log(isLoading);
 
   return (
     <div className={styles.container}>
@@ -77,19 +89,23 @@ export function Home() {
         onClick={() => navigate('/add-cellphone')}
       />
 
-      <div className={styles.cardsContainer}>
-        {products &&
-          products.map((product) => (
-            <Link key={product.id} className={styles.cellphoneCard} to={`/cellphone/${product.id}`}>
-              <h3>{product.name}</h3>
-              <hr />
-              <p>Brand: {product.brand}</p>
-              <p>Model: {product.model}</p>
-              <p>Price: ${product.price}</p>
-              <p>Color: {product.color}</p>
-            </Link>
-          ))}
-      </div>
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <div className={styles.cardsContainer}>
+          {products &&
+            products.map((product) => (
+              <Link key={product.id} className={styles.cellphoneCard} to={`/cellphone/${product.id}`}>
+                <h3>{product.name}</h3>
+                <hr />
+                <p>Brand: {product.brand}</p>
+                <p>Model: {product.model}</p>
+                <p>Price: ${product.price}</p>
+                <p>Color: {product.color}</p>
+              </Link>
+            ))}
+        </div>
+      )}
     </div>
   );
 }
