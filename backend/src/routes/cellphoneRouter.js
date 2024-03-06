@@ -6,6 +6,8 @@ const validateUpdatePhone = require('../middlewares/validateUpdateCellphone');
 
 router.get('/', validateAuth, cellphoneController.getAll);
 
+router.get('/:id', validateAuth, cellphoneController.getById);
+
 router.post('/', validateAuth, validatePhone, cellphoneController.create);
 
 router.put('/:id', validateAuth, validateUpdatePhone, cellphoneController.update);
