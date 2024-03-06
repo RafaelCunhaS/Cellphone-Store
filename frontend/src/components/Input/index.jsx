@@ -55,7 +55,7 @@ const CustomInput = forwardRef(
 );
 
 CustomInput.propTypes = {
-  label: propTypes.string.isRequired,
+  label: propTypes.string,
   placeholder: propTypes.string,
   Icon: propTypes.func,
   isPassword: propTypes.bool,
