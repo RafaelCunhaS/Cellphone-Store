@@ -9,7 +9,7 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <Routes />
-        <ToastContainer position="top-right" autoClose={2500} theme="dark" />
+        <ToastContainer position="top-right" autoClose={1500} theme="dark" />
       </AuthProvider>
     </BrowserRouter>
   );
