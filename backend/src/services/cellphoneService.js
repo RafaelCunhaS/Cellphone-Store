@@ -1,10 +1,22 @@
 const { v4: uuidv4 } = require('uuid');
+const { Op } = require('sequelize');
 const { Cellphone } = require('../database/models');
 const errorFunction = require('../utils/errorFunction');
 const { NOT_FOUND } = require('../utils/statusCode');
 
-const getAll = async () => {
-  const cellphones = await Cellphone.findAll();
+const getAll = async (query) => {
+  const { category, search, sort } = query;
+  const filters = {};
+
+  if (category && search) {
+    filters[category] = { [Op.iLike]: `%${search}%` };
+  }
+
+  const cellphones = await Cellphone.findAll({
+    where: filters,
+    order: sort ? [['price', sort]] : [],
+  });
+
   return cellphones;
 };
 

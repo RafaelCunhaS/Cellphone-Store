@@ -1,10 +1,18 @@
 const cellphoneService = require('../services/cellphoneService');
 const { CREATED, OK_STATUS, NO_CONTENT } = require('../utils/statusCode');
 
-const getAll = async (_req, res) => {
-  const cellphones = await cellphoneService.getAll();
+const getAll = async (req, res) => {
+  const cellphones = await cellphoneService.getAll(req.query);
 
   res.status(OK_STATUS).json(cellphones);
+};
+
+const getById = async (req, res) => {
+  const { id } = req.params;
+
+  const cellphone = await cellphoneService.getById(id);
+
+  res.status(OK_STATUS).json(cellphone);
 };
 
 const create = async (req, res) => {
@@ -31,6 +39,7 @@ const remove = async (req, res) => {
 
 module.exports = {
   getAll,
+  getById,
   create,
   update,
   remove,
