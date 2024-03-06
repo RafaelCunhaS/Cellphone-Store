@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 1rem;
 }
 
 .form {
@@ -17,17 +16,17 @@
   color: #fdf7f7;
 
   h2 {
-    font-size: 2rem;
+    font-size: 1.6rem;
     margin-bottom: 1rem;
   }
 
   .input {
     height: 10rem;
   }
-}
 
-button {
-  width: 170px !important;
+  button {
+    width: 170px !important;
+  }
 }
 
 .link {

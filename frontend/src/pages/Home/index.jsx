@@ -8,6 +8,7 @@ import { api } from '../../services/api';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { LoadingSpinner } from '../../components/Loading';
+import { Header } from '../../components/Header';
 
 export function Home() {
   const [products, setProducts] = useState([]);
@@ -42,12 +43,10 @@ export function Home() {
   function handleSort(e) {
     setSort(e.currentTarget.value);
   }
-  console.log(isLoading);
 
   return (
     <div className={styles.container}>
-      <h1>Cellphone Store</h1>
-
+      <Header />
       <div className={styles.filters}>
         <div className={styles.searchContainer}>
           <div>

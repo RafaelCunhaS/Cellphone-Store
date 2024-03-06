@@ -12,6 +12,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { number, object, string } from 'yup';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Header } from '../../components/Header';
 
 const schema = object({
   name: string().required('Name required'),
@@ -78,6 +79,7 @@ export function Cellphone() {
 
   return (
     <div className={styles.container}>
+      <Header />
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form} autoComplete="off" autoCapitalize="off">
         <h2>Edit Cellphone</h2>
 
@@ -117,8 +119,11 @@ export function Cellphone() {
           error={errors.color}
         />
 
-        <Button title="Edit" icon={<MdModeEdit />} type="submit" />
-        <Button title="Remove" icon={<IoMdTrash />} type="button" onClick={handleRemove} />
+        <div className={styles.buttonsContainer}>
+          <Button title="Edit" icon={<MdModeEdit />} type="submit" />
+          <Button title="Remove" icon={<IoMdTrash />} type="button" onClick={handleRemove} />
+        </div>
+
         <Link className={styles.link} to="/home">
           <span>
             <GoArrowLeft />

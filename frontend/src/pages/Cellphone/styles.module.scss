@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 1rem;
 }
 
 .form {
@@ -24,10 +23,15 @@
   .input {
     height: 10rem;
   }
+
+  button {
+    width: 160px !important;
+  }
 }
 
-button {
-  width: 170px !important;
+.buttonsContainer {
+  display: flex;
+  gap: 1.7rem;
 }
 
 .link {

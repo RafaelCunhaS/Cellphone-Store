@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { number, object, string } from 'yup';
 import { Link } from 'react-router-dom';
+import { Header } from '../../components/Header';
 
 const schema = object({
   name: string().required('Name required'),
@@ -44,6 +45,7 @@ export function AddCellphone() {
 
   return (
     <div className={styles.container}>
+      <Header />
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form} autoComplete="off" autoCapitalize="off">
         <h2>Add Cellphone</h2>
 
