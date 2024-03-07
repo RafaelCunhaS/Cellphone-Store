@@ -57,11 +57,11 @@ export function Cellphone() {
     try {
       const { status } = await api.put(`/cellphone/${id}`, dataForm);
       if (status === 204) {
-        toast.success('Cellphone modified successfully');
+        toast.success('Cellphone edited successfully');
       }
     } catch (error) {
       console.log(error);
-      toast.warning(error.response.data.message);
+      toast.warning(error.response?.data?.message || 'Error editing Cellphone');
     }
   }
 
@@ -69,12 +69,12 @@ export function Cellphone() {
     try {
       const { status } = await api.delete(`/cellphone/${id}`);
       if (status === 204) {
-        toast.success('Cellphone removed!');
+        toast.success('Cellphone removed');
         navigate('/home');
       }
     } catch (error) {
       console.log(error);
-      toast.warning(error.response.data.message);
+      toast.warning(error.response?.data?.message || 'Error removing Cellphone');
     }
   }
 
