@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import { LoadingSpinner } from '../../components/Loading';
 import { Header } from '../../components/Header';
 import Footer from '../../components/Footer';
+import { Pagination } from '../../components/Pagination';
 
 export function Home() {
   const [products, setProducts] = useState([]);
@@ -17,13 +18,19 @@ export function Home() {
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const navigate = useNavigate();
 
   async function getProducts() {
     setIsLoading(true);
     try {
-      const { data } = await api.get(`/cellphone?category=${category}&search=${search}&sort=${sort}`);
-      setProducts(data);
+      const { data } = await api.get(
+        `/cellphone?category=${category}&search=${search}&sort=${sort}&page=${currentPage - 1}`
+      );
+      console.log(data);
+      setTotalPages(data.totalPages);
+      setProducts(data.data);
     } catch (error) {
       console.log(error);
       toast.warning(error.response.data.message);
@@ -35,7 +42,7 @@ export function Home() {
   useEffect(() => {
     getProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search, sort]);
+  }, [search, currentPage, sort]);
 
   function handleSelect(e) {
     setCategory(e.currentTarget.value);
@@ -43,6 +50,11 @@ export function Home() {
 
   function handleSort(e) {
     setSort(e.currentTarget.value);
+  }
+
+  function handleSearch(e) {
+    setSearch(e.currentTarget.value);
+    setCurrentPage(1);
   }
 
   return (
@@ -65,7 +77,7 @@ export function Home() {
           </div>
 
           <div className={styles.searchInput}>
-            <CustomInput Icon={FiSearch} autoComplete="off" onChange={(e) => setSearch(e.target.value.toLowerCase())} />
+            <CustomInput Icon={FiSearch} autoComplete="off" onChange={handleSearch} />
           </div>
         </div>
 
@@ -74,20 +86,23 @@ export function Home() {
             Sort price by:
           </label>
           <select className="" name="sort" id="sort" onChange={handleSort}>
-            <option defaultChecked value="asc">
-              Ascending
+            <option defaultChecked value="">
+              None
             </option>
+            <option value="asc">Ascending</option>
             <option value="desc">Descending</option>
           </select>
         </div>
       </div>
 
-      <Button
-        title="Add Cellphone"
-        icon={<MdOutlinePhoneIphone />}
-        type="button"
-        onClick={() => navigate('/add-cellphone')}
-      />
+      <div className={styles.addButton}>
+        <Button
+          title="Add Cellphone"
+          icon={<MdOutlinePhoneIphone />}
+          type="button"
+          onClick={() => navigate('/add-cellphone')}
+        />
+      </div>
 
       {isLoading ? (
         <LoadingSpinner />
@@ -106,6 +121,11 @@ export function Home() {
                 </Link>
               ))}
           </div>
+          <Pagination
+            setCurrentPage={(page) => setCurrentPage(page)}
+            totalPages={totalPages}
+            currentPage={currentPage}
+          />
           <Footer />
         </div>
       )}
