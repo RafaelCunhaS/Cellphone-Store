@@ -13,6 +13,7 @@ import { number, object, string } from 'yup';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
+import Footer from '../../components/Footer';
 
 const schema = object({
   name: string().required('Name required'),
@@ -131,6 +132,7 @@ export function Cellphone() {
           Home
         </Link>
       </form>
+      <Footer />
     </div>
   );
 }

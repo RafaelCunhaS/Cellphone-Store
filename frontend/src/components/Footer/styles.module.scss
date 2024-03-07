@@ -1,0 +1,18 @@
+.footer {
+  text-align: center;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  margin-top: 1.5rem;
+  background-color: rgb(141, 135, 135);
+  width: 100%;
+
+  svg {
+    vertical-align: sub;
+    color: black
+  }
+
+  svg:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+  }
+}

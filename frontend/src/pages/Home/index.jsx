@@ -9,6 +9,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { LoadingSpinner } from '../../components/Loading';
 import { Header } from '../../components/Header';
+import Footer from '../../components/Footer';
 
 export function Home() {
   const [products, setProducts] = useState([]);
@@ -91,18 +92,21 @@ export function Home() {
       {isLoading ? (
         <LoadingSpinner />
       ) : (
-        <div className={styles.cardsContainer}>
-          {products &&
-            products.map((product) => (
-              <Link key={product.id} className={styles.cellphoneCard} to={`/cellphone/${product.id}`}>
-                <h3>{product.name}</h3>
-                <hr />
-                <p>Brand: {product.brand}</p>
-                <p>Model: {product.model}</p>
-                <p>Price: ${product.price}</p>
-                <p>Color: {product.color}</p>
-              </Link>
-            ))}
+        <div>
+          <div className={styles.cardsContainer}>
+            {products &&
+              products.map((product) => (
+                <Link key={product.id} className={styles.cellphoneCard} to={`/cellphone/${product.id}`}>
+                  <h3>{product.name}</h3>
+                  <hr />
+                  <p>Brand: {product.brand}</p>
+                  <p>Model: {product.model}</p>
+                  <p>Price: ${product.price}</p>
+                  <p>Color: {product.color}</p>
+                </Link>
+              ))}
+          </div>
+          <Footer />
         </div>
       )}
     </div>

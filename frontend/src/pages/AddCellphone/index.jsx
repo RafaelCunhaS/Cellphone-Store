@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { number, object, string } from 'yup';
 import { Link } from 'react-router-dom';
 import { Header } from '../../components/Header';
+import Footer from '../../components/Footer';
 
 const schema = object({
   name: string().required('Name required'),
@@ -93,6 +94,7 @@ export function AddCellphone() {
           Home
         </Link>
       </form>
+      <Footer />
     </div>
   );
 }
