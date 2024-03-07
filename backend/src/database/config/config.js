@@ -6,7 +6,7 @@ const config = {
   password: process.env.DB_PASS || '1234',
   database: process.env.DB_NAME || 'phone_store_db',
   host: process.env.DB_HOST || 'localhost',
-  port: Number(process.env.DB_PORT) || 5432,
+  port: Number(process.env.DB_PORT) || 2345,
   dialect: 'postgres',
   dialectModule: require('pg'),
   ...(process.env.DB_SSL && {
