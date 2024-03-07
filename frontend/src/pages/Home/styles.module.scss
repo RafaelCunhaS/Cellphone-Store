@@ -104,3 +104,9 @@ select {
     background-color: grey;
   }
 }
+
+.addButtons {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}

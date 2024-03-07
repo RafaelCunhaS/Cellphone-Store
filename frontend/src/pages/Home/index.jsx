@@ -32,7 +32,7 @@ export function Home() {
       setProducts(data.data);
     } catch (error) {
       console.log(error);
-      toast.warning(error.response?.data?.message || 'Error fetching Cellphones');
+      toast.warning(error.response?.data?.message);
     } finally {
       setIsLoading(false);
     }
@@ -94,22 +94,24 @@ export function Home() {
         </div>
       </div>
 
-      <div className={styles.addButton}>
-        <Button
-          title="Add Cellphone"
-          icon={<MdOutlinePhoneIphone />}
-          type="button"
-          onClick={() => navigate('/cellphones/add')}
-        />
-      </div>
+      <div className={styles.addButtons}>
+        <div className={styles.addButton}>
+          <Button
+            title="Add Cellphone"
+            icon={<MdOutlinePhoneIphone />}
+            type="button"
+            onClick={() => navigate('/cellphones/add')}
+          />
+        </div>
 
-      <div className={styles.addButton}>
-        <Button
-          title="Add Multiple Cellphones"
-          icon={<MdOutlinePhoneIphone />}
-          type="button"
-          onClick={() => navigate('/cellphones/add-multiple')}
-        />
+        <div className={styles.addButton}>
+          <Button
+            title="Add Multiple Cellphones"
+            icon={<MdOutlinePhoneIphone />}
+            type="button"
+            onClick={() => navigate('/cellphones/add-multiple')}
+          />
+        </div>
       </div>
 
       {isLoading ? (
