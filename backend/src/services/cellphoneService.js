@@ -4,12 +4,16 @@ const { Cellphone } = require('../database/models');
 const errorFunction = require('../utils/errorFunction');
 const { NOT_FOUND } = require('../utils/statusCode');
 
+const validateCategory = (category) =>
+  // eslint-disable-next-line implicit-arrow-linebreak
+  category === 'name' || category === 'brand' || category === 'model' || category === 'color';
+
 const getAll = async (query, pagination) => {
   const { category, search, sort } = query;
   const { page, size } = pagination;
   const filters = {};
 
-  if (category && search) {
+  if (category && search && validateCategory(category)) {
     filters[category] = { [Op.iLike]: `%${search}%` };
   }
 
@@ -17,7 +21,7 @@ const getAll = async (query, pagination) => {
     limit: size,
     offset: page * size,
     where: filters,
-    order: sort ? [['price', sort]] : [],
+    order: sort === 'asc' || sort === 'desc' ? [['price', sort]] : [],
   });
 
   return cellphones;
