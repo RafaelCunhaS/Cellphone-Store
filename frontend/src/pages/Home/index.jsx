@@ -28,7 +28,6 @@ export function Home() {
       const { data } = await api.get(
         `/cellphone?category=${category}&search=${search}&sort=${sort}&page=${currentPage - 1}`
       );
-      console.log(data);
       setTotalPages(data.totalPages);
       setProducts(data.data);
     } catch (error) {
