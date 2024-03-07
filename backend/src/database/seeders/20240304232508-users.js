@@ -13,13 +13,13 @@ module.exports = {
       [
         {
           id: uuidv4(),
-          email: 'lewishamilton@gmail.com',
+          email: 'johndoe@gmail.com',
           password: md5('123456'),
         },
         {
           id: uuidv4(),
-          email: 'MichaelSchumacher@gmail.com',
-          password: md5('123456'),
+          email: 'janedoe@gmail.com',
+          password: md5('123321'),
         },
       ],
       { timestamps: false }
