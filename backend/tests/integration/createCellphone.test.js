@@ -2,6 +2,13 @@ const app = require('../../src/api');
 const request = require('supertest');
 
 describe('Create Cellphone', () => {
+  let authToken;
+
+  beforeAll(async () => {
+    const { body } = await request(app).post('/user/login').send({ email: 'johndoe@gmail.com', password: '123456' });
+    authToken = body.token;
+  });
+
   it('should create a cellphone with first structure', async () => {
     const cellphoneData = {
       name: 'Samsung Galaxy S21',
@@ -11,11 +18,7 @@ describe('Create Cellphone', () => {
       color: 'Black',
     };
 
-    const {
-      body: { token },
-    } = await request(app).post('/user/login').send({ email: 'johndoe@gmail.com', password: '123456' });
-
-    await request(app).post('/cellphone').send(cellphoneData).set({ Authorization: token }).expect(201);
+    await request(app).post('/cellphone').send(cellphoneData).set({ Authorization: authToken }).expect(201);
   });
 
   it('should create a cellphone with second structure', async () => {
@@ -29,11 +32,7 @@ describe('Create Cellphone', () => {
       price: 9999,
     };
 
-    const {
-      body: { token },
-    } = await request(app).post('/user/login').send({ email: 'johndoe@gmail.com', password: '123456' });
-
-    await request(app).post('/cellphone').send(cellphoneData).set({ Authorization: token }).expect(201);
+    await request(app).post('/cellphone').send(cellphoneData).set({ Authorization: authToken }).expect(201);
   });
 
   it('should create a cellphone with third structure', async () => {
@@ -55,11 +54,7 @@ describe('Create Cellphone', () => {
       },
     ];
 
-    const {
-      body: { token },
-    } = await request(app).post('/user/login').send({ email: 'johndoe@gmail.com', password: '123456' });
-
-    await request(app).post('/cellphone').send(cellphoneData).set({ Authorization: token }).expect(201);
+    await request(app).post('/cellphone').send(cellphoneData).set({ Authorization: authToken }).expect(201);
   });
 
   it('should handle invalid body structure', async () => {
@@ -75,14 +70,10 @@ describe('Create Cellphone', () => {
       },
     ];
 
-    const {
-      body: { token },
-    } = await request(app).post('/user/login').send({ email: 'johndoe@gmail.com', password: '123456' });
-
     const { statusCode, body } = await request(app)
       .post('/cellphone')
       .send(cellphoneData)
-      .set({ Authorization: token });
+      .set({ Authorization: authToken });
 
     expect(statusCode).toEqual(400);
     expect(body).toHaveProperty('message');
