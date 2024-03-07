@@ -88,8 +88,8 @@ export function Home() {
             <option defaultChecked value="">
               None
             </option>
-            <option value="asc">Ascending</option>
-            <option value="desc">Descending</option>
+            <option value="asc">Low to High</option>
+            <option value="desc">High to Low</option>
           </select>
         </div>
       </div>
