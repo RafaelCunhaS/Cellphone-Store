@@ -12,7 +12,7 @@
 
   - _category_: Categoria pela qual quer fazer o filtro. Opções: ['brand', 'model', 'name', 'color'].
   - _search_: Palavra pela qual quer filtrar.
-  - _sort_: Ordenação pelo preço dos celulares.
+  - _sort_: Ordenação pelo preço dos celulares. Opções: ['asc', 'desc']
   - _page_: Página que deseja obter.
   - _size_: Itens a serem retornados. Limite: 10.
 
