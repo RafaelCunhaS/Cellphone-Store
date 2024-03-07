@@ -10,7 +10,10 @@
     "prestart": "npm run db:reset",
     "start": "node .",
     "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
-    "test": "mocha ./tests --exit",
+    "test": "npm run test:unit && npm run test:integration",
+    "test:file": "jest --",
+    "test:unit": "jest .tests/unit",
+    "test:integration": "jest .tests/integration --forceExit",
     "predev": "npm run db:reset",
     "dev": "nodemon .",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json ."
@@ -19,15 +22,13 @@
   "author": "Rafael Santos",
   "license": "ISC",
   "devDependencies": {
-    "chai": "^5.1.0",
-    "chai-http": "^4.4.0",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.1",
-    "mocha": "^10.3.0",
+    "jest": "^29.7.0",
     "nodemon": "^3.1.0",
     "sequelize-cli": "^6.6.2",
-    "sinon": "^17.0.1",
+    "supertest": "^6.3.4",
     "swagger-autogen": "^2.23.7"
   },
   "dependencies": {
