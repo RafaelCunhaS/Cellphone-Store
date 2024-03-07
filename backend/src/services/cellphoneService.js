@@ -4,15 +4,18 @@ const { Cellphone } = require('../database/models');
 const errorFunction = require('../utils/errorFunction');
 const { NOT_FOUND } = require('../utils/statusCode');
 
-const getAll = async (query) => {
+const getAll = async (query, pagination) => {
   const { category, search, sort } = query;
+  const { page, size } = pagination;
   const filters = {};
 
   if (category && search) {
     filters[category] = { [Op.iLike]: `%${search}%` };
   }
 
-  const cellphones = await Cellphone.findAll({
+  const cellphones = await Cellphone.findAndCountAll({
+    limit: size,
+    offset: page * size,
     where: filters,
     order: sort ? [['price', sort]] : [],
   });

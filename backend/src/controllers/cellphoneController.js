@@ -2,9 +2,12 @@ const cellphoneService = require('../services/cellphoneService');
 const { CREATED, OK_STATUS, NO_CONTENT } = require('../utils/statusCode');
 
 const getAll = async (req, res) => {
-  const cellphones = await cellphoneService.getAll(req.query);
+  const cellphones = await cellphoneService.getAll(req.query, req.pagination);
 
-  res.status(OK_STATUS).json(cellphones);
+  res.status(OK_STATUS).json({
+    totalPages: Math.ceil(cellphones.count / Number.parseInt(req.pagination.size, 10)),
+    data: cellphones.rows,
+  });
 };
 
 const getById = async (req, res) => {

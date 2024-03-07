@@ -7,8 +7,6 @@ const schema = Joi.object({
 });
 
 module.exports = (req, _res, next) => {
-  console.log('PASSOU');
-  console.log(req.body);
   const { error } = schema.validate(req.body);
 
   if (error) return next(errorFunction(400, error.message));
