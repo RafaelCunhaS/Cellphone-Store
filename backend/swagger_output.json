@@ -1,194 +1,459 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
+    "version": "1.0.0",
     "title": "Cellphone Store API",
     "description": "Documentation",
-    "version": "1.0.0"
+    "contact": {
+      "email": "rafaelcs_94@hotmail.com",
+      "name": "Rafael Santos"
+    }
   },
-  "host": "cellphones-backend-sooty.vercel.app",
-  "basePath": "/",
-  "schemes": ["https"],
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Development"
+    },
+    {
+      "url": "https://cellphones-backend-sooty.vercel.app/",
+      "description": "Production"
+    }
+  ],
   "paths": {
-    "/user": {
+    "/user/": {
       "post": {
-        "summary": "Create new user",
+        "tags": ["User"],
+        "summary": "Create a new user",
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "type": "string",
-                  "example": "johndoe@gmail.com"
-                },
-                "password": {
-                  "type": "string",
-                  "format": "password",
-                  "example": "123456"
+        "responses": {
+          "201": {
+            "description": "Creates the user and returns a token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tokenResponse"
                 }
               }
-            },
-            "required": ["username", "password"]
+            }
           }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          },
-          "201": {
-            "description": "Receives a token if successful"
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userBody"
+              }
+            }
           }
         }
       }
     },
     "/user/login": {
       "post": {
-        "summary": "User login",
+        "tags": ["User"],
+        "summary": "Authenticate user",
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "type": "string",
-                  "example": "newuser1@gmail.com"
-                },
-                "password": {
-                  "type": "string",
-                  "format": "password",
-                  "example": "123456"
+        "responses": {
+          "200": {
+            "description": "Returns a token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tokenResponse"
                 }
               }
-            },
-            "required": ["username", "password"]
+            }
           }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          },
-          "200": {
-            "description": "Receives a token if successful"
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userBody"
+              }
+            }
           }
         }
       }
     },
-    "/cellphone": {
+    "/cellphone/": {
       "get": {
-        "summary": "Fetch cellphones",
+        "tags": ["Cellphone"],
+        "summary": "Get all cellphones based on parameters",
         "description": "",
         "parameters": [
           {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
+            "name": "category",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/category"
+            },
+            "required": false
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/sort"
+            },
+            "required": false
           },
           {
             "name": "page",
             "in": "query",
-            "type": "string"
+            "schema": {
+              "$ref": "#/components/schemas/page"
+            },
+            "required": false
           },
           {
             "name": "size",
             "in": "query",
-            "type": "string"
+            "schema": {
+              "$ref": "#/components/schemas/size"
+            },
+            "type": "number",
+            "required": false
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "Returns an array of cellphones",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cellphoneResponse"
+                }
+              }
+            }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
-        "summary": "Create new cellphone(s)",
+        "tags": ["Cellphone"],
+        "summary": "Create a new cellphone",
         "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
         "responses": {
-          "default": {
-            "description": ""
+          "201": {
+            "description": "Creates a cellphone and returns no content"
           }
-        }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  { "$ref": "#/components/schemas/cellphoneBody1" },
+                  { "$ref": "#/components/schemas/cellphoneBody2" },
+                  { "$ref": "#/components/schemas/cellphoneBody3" }
+                ]
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/cellphone/{id}": {
       "get": {
-        "summary": "Fetch cellphone by id",
+        "tags": ["Cellphone"],
+        "summary": "Get a cellphone by its id",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "Returns cellphone with all its information"
+          },
+          "400": {
+            "description": "Invalid id type"
+          },
+          "404": {
+            "description": "Cellphone not found"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
-        "summary": "Edit cellphone",
+        "tags": ["Cellphone"],
+        "summary": "Update a cellphone",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "204": {
+            "description": "Updates cellphone and returns no content"
+          },
+          "400": {
+            "description": "Invalid id type"
+          },
+          "404": {
+            "description": "Cellphone not found"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cellphoneBody1"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["Cellphone"],
+        "summary": "Delete a cellphone",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deletes cellphone and returns no content"
+          },
+          "400": {
+            "description": "Invalid id type"
+          },
+          "404": {
+            "description": "Cellphone not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "userBody": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "johndoe@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "123456"
+          }
+        },
+        "required": ["email", "password"]
+      },
+      "tokenResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTAxNzc0MzIsImlhdCI6MTcxMDA5MTAzMiwiZW1haWwiOiJqb2huZG9lQGdtYWlsLmNvbSJ9.GSxLXWQFh7xZcktpGAUlzQK9btgARIguSpO-1VD5Cc0"
           }
         }
       },
-      "delete": {
-        "summary": "Delete cellphone",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
+      "cellphoneBody1": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Xiaomi Redmi 9"
           },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
+          "brand": {
+            "type": "string",
+            "example": "Xiaomi"
+          },
+          "model": {
+            "type": "string",
+            "example": "Redmi 9"
+          },
+          "price": {
+            "type": "number",
+            "example": 15000
+          },
+          "color": {
+            "type": "string",
+            "example": "red"
           }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
+        },
+        "required": ["name", "brand", "model", "price", "color"]
+      },
+      "cellphoneBody2": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Xiaomi Redmi 9"
+          },
+          "details": {
+            "type": "object",
+            "properties": {
+              "brand": {
+                "type": "string",
+                "example": "Xiaomi"
+              },
+              "model": {
+                "type": "string",
+                "example": "Redmi 9"
+              },
+              "color": {
+                "type": "string",
+                "example": "red"
+              }
+            },
+            "required": ["brand", "model", "color"]
+          },
+          "price": {
+            "type": "number",
+            "example": 15000
+          }
+        },
+        "required": ["name", "price"]
+      },
+      "cellphoneBody3": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Iphone 14 Pro"
+            },
+            "brand": {
+              "type": "string",
+              "example": "Iphone"
+            },
+            "model": {
+              "type": "string",
+              "example": "14 Pro"
+            },
+            "data": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "price": {
+                    "type": "number",
+                    "example": 25000
+                  },
+                  "color": {
+                    "type": "string",
+                    "example": "white"
+                  }
+                }
+              }
+            }
+          },
+          "required": ["name", "brand", "model"]
+        }
+      },
+      "cellphoneResponse": {
+        "type": "object",
+        "properties": {
+          "totalPages": {
+            "type": "number",
+            "example": 1
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Iphone 14 Pro"
+                },
+                "brand": {
+                  "type": "string",
+                  "example": "Iphone"
+                },
+                "model": {
+                  "type": "string",
+                  "example": "14 Pro"
+                },
+                "price": {
+                  "type": "number",
+                  "example": 25000
+                },
+                "color": {
+                  "type": "string",
+                  "example": "white"
+                }
+              }
+            }
           }
         }
+      },
+      "category": {
+        "type": "string",
+        "enum": ["name", "brand", "model", "color"]
+      },
+      "sort": {
+        "type": "string",
+        "enum": ["asc", "desc"]
+      },
+      "page": {
+        "type": "number",
+        "minimum": 0,
+        "default": 0
+      },
+      "size": {
+        "type": "number",
+        "minimum": 1,
+        "maximum": 10,
+        "default": 10
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

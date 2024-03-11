@@ -3,10 +3,7 @@ const { Op } = require('sequelize');
 const { Cellphone } = require('../database/models');
 const errorFunction = require('../utils/errorFunction');
 const { NOT_FOUND } = require('../utils/statusCode');
-
-const validateCategory = (category) =>
-  // eslint-disable-next-line implicit-arrow-linebreak
-  category === 'name' || category === 'brand' || category === 'model' || category === 'color';
+const validateCategory = require('../utils/validateCellphoneCategory');
 
 const getAll = async (query, pagination) => {
   const { category, search, sort } = query;
