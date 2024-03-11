@@ -1,6 +1,6 @@
 # Lexart Teste FullStack Javascript
 
-### Link do deploy na Vercel: https://cellphone-store-g0ejrp03v-rafaelcunhas.vercel.app/
+### Link do deploy na Vercel: [https://cellphone-store-g0ejrp03v-rafaelcunhas.vercel.app/](https://cellphone-store-nvgfgql22-rafaelcunhas.vercel.app)
 
 ### Rotas da API:
 
