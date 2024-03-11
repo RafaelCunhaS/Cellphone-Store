@@ -63,7 +63,7 @@ function AuthProvider({ children }) {
 
     localStorage.setItem('token', token);
     localStorage.setItem('email', email);
-    api.defaults.headers.common['Authorization'] = `${token}`;
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     navigate('/home');
   }
 
