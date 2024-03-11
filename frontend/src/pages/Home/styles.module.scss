@@ -5,63 +5,46 @@
   }
 }
 
+.filtersButtonsContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  &:label {
+    font-size: 1.1em;
+  }
+
+  &:input {
+    width: 1rem;
+  }
+}
+
+.filtersContainer {
+  display: flex;
+  gap: 1rem;
+
+  .sortFilter {
+    align-self: center;
+  }
+
+  input {
+    width: 8rem;
+  }
+
+  svg {
+    height: 18px;
+  }
+}
+
+.buttonsContainer {
+  display: flex;
+  gap: 1rem;
+}
+
 .addButton {
   button {
     border: none;
     margin: auto;
-  }
-}
-
-.cardsContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 2.5rem;
-  margin: 1rem 3rem;
-}
-
-.cellphoneCard {
-  display: flex;
-  flex-direction: column;
-  width: 15%;
-  height: 30%;
-  padding: 15px 10px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  border-radius: 5px;
-  background-color: #c2b4b4;
-  text-decoration: none;
-  color: #2e2323;
-
-  &:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
-    cursor: pointer;
-
-    h3 {
-      scale: 1.1;
-      transition: 0.4s;
-    }
-  }
-
-  h3 {
-    padding: 20px 0px;
-    text-align: center;
-  }
-
-  hr {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-}
-
-.filters {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4rem;
-
-  label {
-    font-size: 1.1em;
   }
 }
 
@@ -103,10 +86,4 @@ select {
     color: white;
     background-color: grey;
   }
-}
-
-.addButtons {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
 }

@@ -5,12 +5,13 @@ import styles from './styles.module.scss';
 import CustomInput from '../../components/Input';
 import { Button } from '../../components/Button';
 import { api } from '../../services/api';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { LoadingSpinner } from '../../components/Loading';
 import { Header } from '../../components/Header';
 import Footer from '../../components/Footer';
 import { Pagination } from '../../components/Pagination';
+import { CellphoneCard } from '../../components/CellphoneCard';
 
 export function Home() {
   const [products, setProducts] = useState([]);
@@ -59,58 +60,60 @@ export function Home() {
   return (
     <div className={styles.container}>
       <Header />
-      <div className={styles.filters}>
-        <div className={styles.searchContainer}>
-          <div>
-            <label htmlFor="search" className="">
-              Filter by:
+      <div className={styles.filtersButtonsContainer}>
+        <div className={styles.filtersContainer}>
+          <div className={styles.searchContainer}>
+            <div>
+              <label htmlFor="search" className="">
+                Filter by:
+              </label>
+              <select className="" name="search" id="search" onChange={handleSelect}>
+                <option defaultChecked value="name">
+                  Name
+                </option>
+                <option value="brand">Brand</option>
+                <option value="model">Model</option>
+                <option value="color">Color</option>
+              </select>
+            </div>
+
+            <div className={styles.searchInput}>
+              <CustomInput Icon={FiSearch} autoComplete="off" onChange={handleSearch} />
+            </div>
+          </div>
+
+          <div className={styles.sortFilter}>
+            <label htmlFor="sort" className="">
+              Sort price by:
             </label>
-            <select className="" name="search" id="search" onChange={handleSelect}>
-              <option defaultChecked value="name">
-                Name
+            <select className="" name="sort" id="sort" onChange={handleSort}>
+              <option defaultChecked value="">
+                None
               </option>
-              <option value="brand">Brand</option>
-              <option value="model">Model</option>
-              <option value="color">Color</option>
+              <option value="asc">Low to High</option>
+              <option value="desc">High to Low</option>
             </select>
           </div>
+        </div>
 
-          <div className={styles.searchInput}>
-            <CustomInput Icon={FiSearch} autoComplete="off" onChange={handleSearch} />
+        <div className={styles.buttonsContainer}>
+          <div className={styles.addButton}>
+            <Button
+              title="Add Cellphone"
+              icon={<MdOutlinePhoneIphone />}
+              type="button"
+              onClick={() => navigate('/cellphones/add')}
+            />
           </div>
-        </div>
 
-        <div>
-          <label htmlFor="sort" className="">
-            Sort price by:
-          </label>
-          <select className="" name="sort" id="sort" onChange={handleSort}>
-            <option defaultChecked value="">
-              None
-            </option>
-            <option value="asc">Low to High</option>
-            <option value="desc">High to Low</option>
-          </select>
-        </div>
-      </div>
-
-      <div className={styles.addButtons}>
-        <div className={styles.addButton}>
-          <Button
-            title="Add Cellphone"
-            icon={<MdOutlinePhoneIphone />}
-            type="button"
-            onClick={() => navigate('/cellphones/add')}
-          />
-        </div>
-
-        <div className={styles.addButton}>
-          <Button
-            title="Add Multiple Cellphones"
-            icon={<MdOutlinePhoneIphone />}
-            type="button"
-            onClick={() => navigate('/cellphones/add-multiple')}
-          />
+          <div className={styles.addButton}>
+            <Button
+              title="Add Multiple Cellphones"
+              icon={<MdOutlinePhoneIphone />}
+              type="button"
+              onClick={() => navigate('/cellphones/add-multiple')}
+            />
+          </div>
         </div>
       </div>
 
@@ -118,19 +121,7 @@ export function Home() {
         <LoadingSpinner />
       ) : (
         <div>
-          <div className={styles.cardsContainer}>
-            {products &&
-              products.map((product) => (
-                <Link key={product.id} className={styles.cellphoneCard} to={`/cellphone/${product.id}`}>
-                  <h3>{product.name}</h3>
-                  <hr />
-                  <p>Brand: {product.brand}</p>
-                  <p>Model: {product.model}</p>
-                  <p>Price: ${product.price}</p>
-                  <p>Color: {product.color}</p>
-                </Link>
-              ))}
-          </div>
+          <CellphoneCard products={products} />
           <Pagination
             setCurrentPage={(page) => setCurrentPage(page)}
             totalPages={totalPages}
