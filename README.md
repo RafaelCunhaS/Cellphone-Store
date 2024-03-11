@@ -1,4 +1,4 @@
-# Lexart Teste FullStack Javascript
+# Cellphone Store
 
 ### Link do deploy na Vercel: [Deploy](https://cellphone-store-nvgfgql22-rafaelcunhas.vercel.app)
 
