@@ -11,12 +11,12 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000",
-      "description": "Development"
-    },
-    {
       "url": "https://cellphones-backend-sooty.vercel.app/",
       "description": "Production"
+    },
+    {
+      "url": "http://localhost:3000",
+      "description": "Development"
     }
   ],
   "paths": {
